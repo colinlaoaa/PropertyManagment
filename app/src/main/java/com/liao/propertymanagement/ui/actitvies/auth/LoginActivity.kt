@@ -1,20 +1,21 @@
-package com.liao.propertymanagement.ui.auth.activities
+package com.liao.propertymanagement.ui.actitvies.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
 import com.liao.propertymanagement.R
-import com.liao.propertymanagement.ui.auth.fragment.BottomSheetFragmentRegister
 import com.liao.propertymanagement.helper.toolbar
-import com.liao.propertymanagement.ui.auth.viewModel.LoginViewModel
-import com.liao.propertymanagement.ui.home.activities.HomeActivity
+import com.liao.propertymanagement.ui.fragment.auth.BottomSheetFragmentRegister
+import com.liao.propertymanagement.viewModel.auth.LoginViewModel
+import com.liao.propertymanagement.ui.actitvies.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_nav.*
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var viewModel: LoginViewModel
@@ -32,18 +33,23 @@ class LoginActivity : AppCompatActivity() {
         bottomSheetFragment =
             BottomSheetFragmentRegister()
 
-        var  btn = findViewById<CircularProgressButton>(R.id.login_btn)
-
-
-
         login_btn.setOnClickListener {
-            btn.startAnimation()
+            login_btn.startAnimation()
             var handler = Handler()
+            val bitmap =
+                BitmapFactory.decodeResource(this.resources, R.drawable.check)
             handler.postDelayed(
                 Runnable{
-                    startActivity(Intent(this,HomeActivity::class.java))
-
+                    login_btn.doneLoadingAnimation(android.R.color.white, bitmap)
+                }, 2000)
+            handler.postDelayed(
+                Runnable{
+                    login_btn.revertAnimation()
+                    startActivity(Intent(this,
+                        HomeActivity::class.java))
+                    login_btn.background = ContextCompat.getDrawable(this, R.drawable.button_selector)
                 }, 3000)
+
              }
     }
 
@@ -62,6 +68,11 @@ class LoginActivity : AppCompatActivity() {
             android.R.id.home ->finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        init()
+        super.onResume()
     }
 
 }

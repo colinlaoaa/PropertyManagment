@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/house2">
+    android:background="@mipmap/house">
 
 <include layout="@layout/app_bar"/>
 
@@ -156,13 +156,12 @@
             android:layout_alignLeft="@+id/passwd_layout"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:drawablePadding="5dp"
             android:gravity="left|center_vertical"
             android:paddingLeft="0dp"
             android:textStyle="bold"
             android:text="remember me"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
 
 
@@ -177,7 +176,7 @@
             android:text="forgot password?"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
 
 

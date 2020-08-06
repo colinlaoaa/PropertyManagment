@@ -1,4 +1,4 @@
-package com.liao.propertymanagement.ui.auth.viewModel
+package com.liao.propertymanagement.viewModel.auth
 
 import androidx.lifecycle.ViewModel
 

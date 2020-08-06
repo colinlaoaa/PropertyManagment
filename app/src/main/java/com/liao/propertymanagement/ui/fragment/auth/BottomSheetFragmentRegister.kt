@@ -1,4 +1,4 @@
-package com.liao.propertymanagement.ui.auth.fragment
+package com.liao.propertymanagement.ui.fragment.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.liao.propertymanagement.R
-import com.liao.propertymanagement.ui.auth.activities.RegisterActivity
+import com.liao.propertymanagement.ui.actitvies.auth.RegisterActivity
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_dialog_register.*
 
 
@@ -41,7 +41,8 @@ class BottomSheetFragmentRegister():BottomSheetDialogFragment() {
 
 
     private fun initView() {
-        var myIntent =Intent(activity,RegisterActivity::class.java)
+        var myIntent =Intent(activity,
+            RegisterActivity::class.java)
         item_Landlord.setOnClickListener {
             myIntent.putExtra(KEY,LANDLORD)
             startActivity(myIntent)

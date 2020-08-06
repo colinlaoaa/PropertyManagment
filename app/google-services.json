@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "876707466322",
+    "firebase_url": "https://property-management-35d18.firebaseio.com",
+    "project_id": "property-management-35d18",
+    "storage_bucket": "property-management-35d18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876707466322:android:058978f424853244fee38b",
+        "android_client_info": {
+          "package_name": "com.liao.propertymanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876707466322-liqeacqmr0am8m0u507sb4llkfikv977.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY51saPWT54VZ95EOJgNSyH_WcCYuNEu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876707466322-liqeacqmr0am8m0u507sb4llkfikv977.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

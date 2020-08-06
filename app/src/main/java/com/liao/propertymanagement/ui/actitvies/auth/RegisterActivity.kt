@@ -1,4 +1,4 @@
-package com.liao.propertymanagement.ui.auth.activities
+package com.liao.propertymanagement.ui.actitvies.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,7 @@ import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import com.liao.propertymanagement.R
 import com.liao.propertymanagement.helper.toolbar
-import com.liao.propertymanagement.ui.auth.viewModel.RegisterViewModel
+import com.liao.propertymanagement.viewModel.auth.RegisterViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -57,7 +57,8 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.login_menu -> startActivity(Intent(this,LoginActivity::class.java))
+            R.id.login_menu -> startActivity(Intent(this,
+                LoginActivity::class.java))
             android.R.id.home ->finish()
 
         }
