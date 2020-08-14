@@ -1,14 +1,15 @@
 package com.liao.propertymanagement.app
 
 
-class Endpoints {
+class EndPoints {
 
     companion object {
 
 
-        fun getAPIData(language: String, spoken_language_code: String): String {
-            return Config.BASE_URL + "repositories?language=$language&since=daily&spoken_language_code=$spoken_language_code"
-        }
+        const val PropertiesList =  "api/property"
+        const val Login = "api/auth/login"
+        const val Register = "api/auth/register"
+
 
 
     }

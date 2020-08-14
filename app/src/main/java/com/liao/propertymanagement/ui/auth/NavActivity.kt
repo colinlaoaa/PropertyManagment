@@ -1,4 +1,4 @@
-package com.liao.propertymanagement.ui.actitvies.auth
+package com.liao.propertymanagement.ui.auth
 
 import android.content.Intent
 import android.graphics.Bitmap

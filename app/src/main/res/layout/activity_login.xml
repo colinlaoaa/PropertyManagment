@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.liao.propertymanagement.view_model.auth.LoginViewModel" />
+
+    </data>
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/house">
@@ -47,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="10dp"
+                android:text="@={viewModel.email}"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/edittext_selector"
                 android:hint="email"
@@ -105,6 +116,7 @@
                 android:hint="password"
                 android:inputType="textPassword"
                 android:maxLength="20"
+                android:text="@={viewModel.password}"
                 android:minHeight="40dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="60dp"
@@ -188,6 +200,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="60dp"
             android:layout_marginRight="10dp"
+            android:onClick="@{()->viewModel.loginButtonClicked()}"
             android:background="@drawable/button_selector"
             android:layout_centerHorizontal="true"
             android:gravity="center"
@@ -200,3 +213,4 @@
     </RelativeLayout>
 
 </RelativeLayout>
+</layout>

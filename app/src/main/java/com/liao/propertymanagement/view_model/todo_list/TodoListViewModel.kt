@@ -1,14 +1,15 @@
-package com.liao.propertymanagement.view_model.todoList
+package com.liao.propertymanagement.view_model.todo_list
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.liao.propertymanagement.helper.FirebaseLiveDatabase
+import com.liao.propertymanagement.helper.SessionManager
 import com.liao.propertymanagement.model.TodoList
 
 class TodoListViewModel : ViewModel() {
     private val todoRepository = TodoRepository()
-    private lateinit var tableName: String
+    var tableName = SessionManager.getLandlordEmail()!!.replace(".", "")
     val updateStatus = ObservableField<String>()
     val num = ObservableField<String>()
     val status = ObservableField<String>()
@@ -37,9 +38,7 @@ class TodoListViewModel : ViewModel() {
         FirebaseLiveDatabase.updateTodoListStatus(tableName,item)
     }
 
-    fun getTablename(table:String){
-        tableName = table
-        todoRepository.tableName = table
-    }
+
+
 
 }
