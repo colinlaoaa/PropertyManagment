@@ -16,7 +16,7 @@ class RoomDatabase() {
 
         fun updateTodoListStatus(tableName: String, todoList: TodoList) {
             var databaseReference = getTableByName(tableName)
-            databaseReference.child(todoList.num!!).setValue(todoList.status)
+            databaseReference.child(todoList.num!!).setValue(todoList)
         }
 
         fun deleteTodoList(tableName: String, todoList: TodoList) {

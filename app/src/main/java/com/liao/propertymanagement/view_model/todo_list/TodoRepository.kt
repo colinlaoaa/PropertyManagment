@@ -1,22 +1,22 @@
-package com.liao.propertymanagement.viewModel.todoList
+package com.liao.propertymanagement.view_model.todoList
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.liao.propertymanagement.helper.RoomDatabase
+import com.liao.propertymanagement.helper.FirebaseLiveDatabase
 import com.liao.propertymanagement.model.TodoList
 
 class TodoRepository() {
     val todoList: MutableLiveData<List<TodoList>?> by lazy {
         MutableLiveData<List<TodoList>?>()
     }
-    private val tableName: String = "AddNotes"
+    lateinit var tableName: String
 
     fun getDataFromFirebase() {
 
         var list: ArrayList<TodoList> = ArrayList()
-        var databaseReference = RoomDatabase.getTableByName(tableName)
+        var databaseReference = FirebaseLiveDatabase.getTableByName(tableName)
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
             }
