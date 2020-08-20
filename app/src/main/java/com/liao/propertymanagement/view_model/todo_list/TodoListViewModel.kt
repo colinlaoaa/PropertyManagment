@@ -8,6 +8,10 @@ import com.liao.propertymanagement.helper.SessionManager
 import com.liao.propertymanagement.model.TodoList
 
 class TodoListViewModel : ViewModel() {
+    val closeFragment: MutableLiveData<Boolean?> by lazy {
+        MutableLiveData<Boolean?>()
+    }
+
     private val todoRepository = TodoRepository()
     var tableName = SessionManager.getLandlordEmail()!!.replace(".", "")
     val updateStatus = ObservableField<String>()
@@ -24,9 +28,23 @@ class TodoListViewModel : ViewModel() {
         return todoRepository.todoList
     }
 
+    fun closeFragmentObserver():MutableLiveData<Boolean?>{
+        return closeFragment
+    }
+
     fun onAddNoteButtonClicked() {
+        if(num.get() == null){num.set("default")}
         var item = TodoList(num.get(),status.get(),message.get(),description.get())
         FirebaseLiveDatabase.insertTodoList(tableName,item)
+        clearAddinfo()
+        closeFragment.postValue(true)
+    }
+
+    fun clearAddinfo(){
+        num.set("")
+        status.set("")
+        message.set("")
+        description.set("")
     }
 
     fun removeButtonClicked(item: TodoList) {
@@ -36,9 +54,13 @@ class TodoListViewModel : ViewModel() {
     fun updateButtonClicked(item: TodoList) {
         item.status = updateStatus.get()
         FirebaseLiveDatabase.updateTodoListStatus(tableName,item)
+        closeFragment.postValue(true)
+        updateStatus.set("")
     }
 
-
+    fun clearUpdateStatus() {
+        updateStatus.set("")
+    }
 
 
 }

@@ -1,7 +1,9 @@
 package com.liao.propertymanagement.view_model.user_profile
 
+import android.graphics.Bitmap
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import com.liao.propertymanagement.api.ApiClient
 import com.liao.propertymanagement.helper.SessionManager
 
 class UserProfileViewModel : ViewModel() {
@@ -10,6 +12,10 @@ class UserProfileViewModel : ViewModel() {
     val github = ObservableField<String?>()
     val twitter = ObservableField<String?>()
     val description = ObservableField<String?>()
+
+
+    private val userProfileRepostory =
+        UserProfileRepostory(ApiClient.getApiEndPoint())
 
     fun getUserEmail(): String? {
         return SessionManager.getEmail()
@@ -57,5 +63,13 @@ class UserProfileViewModel : ViewModel() {
         github.set(SessionManager.getGit())
         twitter.set(SessionManager.getTwitter())
         description.set(SessionManager.getDes())
+    }
+
+    fun transferBitmap(bitmap: Bitmap, path: String) {
+        userProfileRepostory.uploadImage(path)
+    }
+
+    fun readImageLink():String?{
+       return SessionManager.readProfileImage()
     }
 }

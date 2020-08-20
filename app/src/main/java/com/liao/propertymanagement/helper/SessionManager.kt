@@ -21,6 +21,7 @@ object SessionManager {
     private const val KEY_LINKED_IN = "linkedIn"
     private const val KEY_GIT_HUB = "github"
     private const val KEY_DES = "description"
+    private const val KEY_PROFILE_IMAGE_LINK = "profile_image_link"
 
 
     fun init(context: Context) {
@@ -44,6 +45,15 @@ object SessionManager {
         editor.putString(KEY_USER_NAME, userName)
         editor.putString(KEY_LANDLORD_EMAIL, landlordEmail)
         editor.commit()
+    }
+
+    fun saveProfileImage(link:String){
+        editor.putString(KEY_PROFILE_IMAGE_LINK,link)
+        editor.commit()
+    }
+
+    fun readProfileImage():String?{
+        return sharedPreferences.getString(KEY_PROFILE_IMAGE_LINK,"")
     }
 
     fun checkLogin(): Boolean {

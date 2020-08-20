@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.liao.propertymanagement.databinding.NewRowPropertiesBinding
 import com.liao.propertymanagement.model.Properties
+import com.liao.propertymanagement.view_model.properties.GetPropertiesViewModel
 
 
-class AdapterProperties(private val context: Context) :
+class AdapterProperties(private val context: Context, private var viewModel: GetPropertiesViewModel) :
     RecyclerView.Adapter<AdapterProperties.MyViewHolder>() {
 
 
@@ -25,12 +26,16 @@ class AdapterProperties(private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Properties) {
+            binding.viewModel = viewModel
             binding.item = item
             binding.adapter = this@AdapterProperties
             binding.executePendingBindings()
 
             binding.foldingCell.setOnClickListener {
                 binding.foldingCell.toggle(false)
+            }
+            binding.foldingCell2.setOnClickListener {
+                binding.foldingCell2.toggle(false)
             }
         }
 

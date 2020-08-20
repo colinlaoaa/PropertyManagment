@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.liao.propertymanagement.R
 import com.liao.propertymanagement.databinding.ActivityProfileBinding
@@ -41,14 +42,34 @@ class ProfileActivity : AppCompatActivity() {
         setProfile()
 
 
-
     }
 
     private fun setProfile() {
+        binding.relativeLayout.setOnClickListener {
+            if (viewModel.readImageLink() != null && viewModel.readImageLink() != "") {
+                Glide.with(this).load(viewModel.readImageLink())
+                    .placeholder(R.drawable.ic_landlord)
+                    .error(R.drawable.ic_landlord)
+                    .into(circularImageView)
+            }
+        }
+
         circularImageView.setImageResource(R.drawable.ic_landlord)
+        if (viewModel.readImageLink() != null && viewModel.readImageLink() != "") {
+            Glide.with(this).load(viewModel.readImageLink())
+                .placeholder(R.drawable.ic_landlord)
+                .error(R.drawable.ic_landlord)
+                .into(circularImageView)
+        }
+
+        circularImageView.setOnClickListener {
+            showBottomSheetDialog()
+
+        }
+
         fancyAboutPage.setCover(R.drawable.bg); //Pass your cover image
         fancyAboutPage.setName(viewModel.getUserName());
-        fancyAboutPage.setDescription(viewModel.getUserType() + "\n"+viewModel.getUserEmail());
+        fancyAboutPage.setDescription(viewModel.getUserType() + "\n" + viewModel.getUserEmail());
         fancyAboutPage.setAppIcon(R.drawable.collect_rent); //Pass your app icon image
         fancyAboutPage.setAppName("Property Management");
         fancyAboutPage.setVersionNameAsAppSubTitle("1.2.3");
@@ -70,6 +91,11 @@ class ProfileActivity : AppCompatActivity() {
             binding.buttonEditProfile.setImageResource(R.drawable.ic_baseline_add_24)
             setProfile()
         }
+    }
+
+    private fun showBottomSheetDialog() {
+        var bottomSheetFragment = AddPhotoFragment(viewModel)
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag);
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

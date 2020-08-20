@@ -311,6 +311,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
             <Button
+                android:id="@+id/photo_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -322,8 +323,50 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:visibility="gone"
+                android:layout_marginTop="130dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="delete"
+                app:layout_constraintBottom_toTopOf="@+id/confirm_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"/>
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:visibility="gone"
+                android:layout_marginTop="340dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="ok"
+                app:layout_constraintBottom_toTopOf="@+id/confirm_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"/>
+            <ImageView
+                android:id="@+id/bitmap_image_view"
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="@dimen/_170sdp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="170dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/confirm_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"/>
 
             <Button
+                android:id="@+id/confirm_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

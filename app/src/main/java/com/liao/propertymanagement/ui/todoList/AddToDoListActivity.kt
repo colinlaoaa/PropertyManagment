@@ -20,7 +20,7 @@ class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteract
     private lateinit var viewModel: TodoListViewModel
     private val mAdapter = AdapterTodoList(this)
     private lateinit var binding: ActivityAddToDoListBinding
-    var flag = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_to_do_list)
@@ -54,6 +54,12 @@ class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteract
 
             }
         })
+
+        viewModel.closeFragmentObserver().observe(this, Observer {
+            if(it == true){
+                supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentById(R.id.container)!!).commit()
+            }
+        })
     }
 
 
@@ -65,14 +71,10 @@ class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteract
         button_add_note.setOnClickListener {
             var addTodoListFragment =
                 AddTodoListFragment()
-            flag = if(flag==0){
-                supportFragmentManager.beginTransaction().replace(R.id.container, addTodoListFragment)
+
+                supportFragmentManager.beginTransaction().replace(R.id.container, addTodoListFragment).addToBackStack("")
                     .commit()
-                1
-            }else{
-                supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentById(R.id.container)!!).commit()
-                0
-            }
+
         }
         mAdapter.setListener(this)
     }
@@ -84,14 +86,11 @@ class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteract
 
     override fun clickEvent2(item: TodoList) {
         var todoListFragment = TodoListFragment.newInstance(item, "")
-        flag = if(flag==0){
-            supportFragmentManager.beginTransaction().replace(R.id.container, todoListFragment)
+
+            supportFragmentManager.beginTransaction().replace(R.id.container, todoListFragment).addToBackStack("")
                 .commit()
-            1
-        }else{
-            supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentById(R.id.container)!!).commit()
-            0
-        }
+        viewModel.clearUpdateStatus()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -106,14 +105,8 @@ class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteract
             R.id.add_menu_bar -> {
                 var addTodoListFragment =
                     AddTodoListFragment()
-                flag = if(flag==0){
-                    supportFragmentManager.beginTransaction().replace(R.id.container, addTodoListFragment)
+                    supportFragmentManager.beginTransaction().replace(R.id.container, addTodoListFragment).addToBackStack("")
                         .commit()
-                    1
-                }else{
-                    supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentById(R.id.container)!!).commit()
-                    0
-                }
             }
         }
         return super.onOptionsItemSelected(item)

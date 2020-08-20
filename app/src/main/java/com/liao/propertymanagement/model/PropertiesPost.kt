@@ -1,5 +1,7 @@
 package com.liao.propertymanagement.model
 
+import android.graphics.Bitmap
+
 data class PropertiesPost(
     val `data`: Properties,
     val error: Boolean,
@@ -19,5 +21,11 @@ data class Properties(
     var purchasePrice: String?=null,
     var state: String?=null,
     var userId: String?=null,
-    var userType: String?=null
+    var userType: String?=null,
+    var image: String?=null
+)
+
+data class PhotoInfo(
+    var path:String,
+    var photo:Bitmap
 )

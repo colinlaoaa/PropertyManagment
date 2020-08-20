@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.liao.propertymanagement.R
 import com.liao.propertymanagement.ui.properties.PropertiesActivity
+import com.liao.propertymanagement.ui.tenants_management.TenantsAllActivity
 import com.liao.propertymanagement.ui.todoList.AddToDoListActivity
 import kotlinx.android.synthetic.main.fragment_landlord_home.view.*
 import tarek360.animated.icons.IconFactory
@@ -62,6 +63,14 @@ class LandlordHomeFragment : Fragment() {
                 Intent(
                     context,
                     PropertiesActivity::class.java
+                )
+            )
+        }
+        view.image_view_Tenants.setOnClickListener {
+            startActivity(
+                Intent(
+                    context,
+                    TenantsAllActivity::class.java
                 )
             )
         }

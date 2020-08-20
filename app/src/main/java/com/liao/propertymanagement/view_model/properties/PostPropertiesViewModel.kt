@@ -1,12 +1,19 @@
 package com.liao.propertymanagement.view_model.properties
 
+import android.graphics.Bitmap
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.liao.propertymanagement.api.ApiClient
 import com.liao.propertymanagement.helper.SessionManager
+import com.liao.propertymanagement.model.PhotoInfo
 import com.liao.propertymanagement.model.Properties
 
 class PostPropertiesViewModel : ViewModel() {
+    private val bitmapPhoto: MutableLiveData<PhotoInfo> by lazy {
+        MutableLiveData<PhotoInfo>()
+    }
+
     val address  = ObservableField<String?>()
     val city = ObservableField<String?>()
     val country  = "USA"
@@ -18,12 +25,18 @@ class PostPropertiesViewModel : ViewModel() {
     val state = ObservableField<String?>()
     val userId = SessionManager.getUserId()
     val userType = SessionManager.getUserType()
+    var itemImageLink:String? = null
 
 
     private val propertiesListRepository =
         PostPropertiesRepository(ApiClient.getApiEndPoint())
 
+
     fun postPropertiesListRepositoryObserver() = propertiesListRepository.listPropertiesGetRepository
+
+    fun imageLinkObserver() = propertiesListRepository.imageLink
+
+    fun bitmapPhotoObserver() = bitmapPhoto
 
 
     private fun giveParamsGetList(properties:Properties) {
@@ -57,7 +70,30 @@ class PostPropertiesViewModel : ViewModel() {
         properties.state = state.get()
         properties.userId = userId
         properties.userType = userType
+        properties.image = itemImageLink
         giveParamsGetList(properties)
 
+    }
+
+    fun clearProperties(){
+        address.set("")
+        city.set("")
+        latitude.set("")
+        longitude.set("")
+        purchasePrice.set("")
+        state.set("")
+    }
+
+    fun transferBitmap(bitmap: Bitmap,path:String) {
+        var photoInfo = PhotoInfo(path,bitmap)
+        bitmapPhoto.postValue(photoInfo)
+    }
+
+    fun uploadImageConfirm(path:String){
+        propertiesListRepository.uploadImage(path)
+    }
+
+    fun getImageLink(imageLink:String){
+        itemImageLink=imageLink
     }
 }

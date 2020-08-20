@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -26,10 +27,11 @@ private lateinit var binding: FragmentPropertiesBinding
  * Use the [PropertiesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PropertiesFragment(private var mViewModel:GetPropertiesViewModel) : Fragment() {
+class PropertiesFragment(private var mViewModel: GetPropertiesViewModel) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    var mfragmentListener: FragmentListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,21 @@ class PropertiesFragment(private var mViewModel:GetPropertiesViewModel) : Fragme
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_properties, container, false)
 
+        init(binding)
+
+
+        return binding.root
+    }
+
+    interface FragmentListener {
+        fun closeFragment()
+    }
+    fun setFragmentListener(fragmentListener: FragmentListener){
+        mfragmentListener=fragmentListener
+    }
+
+
+    private fun init(binding: FragmentPropertiesBinding) {
         binding.root.check_box_propertyStatus_t.setOnClickListener {
             binding.root.check_box_propertyStatus_f.isChecked =
                 !binding.root.check_box_propertyStatus_t.isChecked
@@ -73,17 +90,58 @@ class PropertiesFragment(private var mViewModel:GetPropertiesViewModel) : Fragme
             }
         }
 
+        binding.root.photo_button.setOnClickListener {
+            showBottomSheetDialog()
+        }
 
 
-
-        return binding.root
     }
 
     private fun observerData() {
         viewModel.postPropertiesListRepositoryObserver().observe(requireActivity(), Observer {
-            if (!it.error){
-                activity?.onBackPressed()
+            if (it!=null) {
                 mViewModel.makeCallGetPropertiesInfo()
+                viewModel.clearProperties()
+                mfragmentListener?.closeFragment()
+
+            }
+        })
+
+        viewModel.bitmapPhotoObserver().observe(requireActivity(), Observer {
+            if (it !=null){
+                var path = it.path
+                binding.bitmapImageView.visibility = View.VISIBLE
+                binding.btnOk.visibility = View.VISIBLE
+                binding.btnOk.setOnClickListener {
+                    binding.btnDelete.visibility = View.GONE
+                    binding.btnOk.visibility = View.GONE
+                    viewModel.uploadImageConfirm(path)
+                    binding.btnOk.visibility = View.GONE
+                }
+                binding.bitmapImageView.setImageBitmap(it.photo)
+                binding.bitmapImageView.setOnClickListener {
+                    if(binding.btnDelete.visibility == View.GONE){
+                        binding.btnDelete.visibility = View.VISIBLE
+                    }else{
+                        binding.btnDelete.visibility = View.GONE
+                    }
+
+                    binding.btnDelete.setOnClickListener {
+                        binding.bitmapImageView.setImageBitmap(null)
+                        binding.bitmapImageView.visibility = View.GONE
+                        binding.btnDelete.visibility = View.GONE
+                        binding.btnOk.visibility = View.GONE
+                        viewModel.getImageLink("https://insidelatinamerica.net/wp-content/uploads/2018/01/noImg_2.jpg")
+                    }
+
+                }
+            }
+        })
+
+        viewModel.imageLinkObserver().observe(requireActivity(), Observer {
+            if (it!=null){
+                Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+                viewModel.getImageLink(it)
             }
         })
     }
@@ -96,7 +154,11 @@ class PropertiesFragment(private var mViewModel:GetPropertiesViewModel) : Fragme
         binding.viewModel = viewModel
         observerData()
 
+    }
 
+    private fun showBottomSheetDialog() {
+        var bottomSheetFragment = PropertiesAddPicBottomSheetFragment(viewModel)
+        bottomSheetFragment.show(activity?.supportFragmentManager!!, bottomSheetFragment.tag);
     }
 
 }
