@@ -3,7 +3,6 @@ package com.liao.propertymanagement.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.liao.propertymanagement.databinding.NewRowToDoListBinding
 import com.liao.propertymanagement.model.TodoList
@@ -12,7 +11,7 @@ import com.liao.propertymanagement.model.TodoList
 class AdapterTodoList(private val context: Context) :
     RecyclerView.Adapter<AdapterTodoList.MyViewHolder>() {
 
-    var mylistener:AdapterInteraction? = null
+    private var mylistener:AdapterInteraction? = null
 
     private var listItem = ArrayList<TodoList>()
 
@@ -30,8 +29,10 @@ class AdapterTodoList(private val context: Context) :
             binding.item = item
             binding.adapter = this@AdapterTodoList
 
-
             binding.executePendingBindings()
+            binding.foldingCell.setOnClickListener {
+                binding.foldingCell.toggle(false)
+            }
         }
 
     }
@@ -56,17 +57,19 @@ class AdapterTodoList(private val context: Context) :
     }
 
     interface AdapterInteraction {
-     fun clickEvent(item: TodoList)
+        fun clickEvent(item: TodoList)
+        fun clickEvent2(item: TodoList)
     }
     fun setListener(adapterInteraction: AdapterInteraction){
         mylistener = adapterInteraction
     }
 
     fun onItemClicked(item: TodoList) {
-        Toast.makeText(context, item.num, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, item.num, Toast.LENGTH_SHORT).show()
         mylistener?.clickEvent(item)
-
-
+    }
+    fun onItemClicked2(item: TodoList) {
+        mylistener?.clickEvent2(item)
     }
 
 }
