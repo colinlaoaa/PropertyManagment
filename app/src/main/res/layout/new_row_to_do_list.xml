@@ -17,7 +17,7 @@
 
         <variable
             name="viewModel"
-            type="com.liao.propertymanagement.viewModel.todoList.TodoListViewModel" />
+            type="com.liao.propertymanagement.view_model.todo_list.TodoListViewModel" />
 
     </data>
     <androidx.cardview.widget.CardView
@@ -38,100 +38,121 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constrain_layout"
+            <com.ramotion.foldingcell.FoldingCell
+                android:id="@+id/folding_cell"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/update"
-                    android:layout_width="64dp"
-
-                    android:src="@drawable/update"
-                    android:padding="5dp"
-                    android:layout_height="32dp"
-                    android:layout_margin="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/delete"
-                    android:layout_width="64dp"
-                    android:onClick="@{()->adapter.onItemClicked(item)}"
-                    android:src="@drawable/ic_baseline_remove_24"
-                    android:layout_height="32dp"
-                    android:layout_margin="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/update" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
+                <FrameLayout
+                    android:id="@+id/cell_content_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="37dp" />
+                    android:background="@android:color/white"
+                    android:visibility="gone">
+                    <LinearLayout
+                        android:background="@mipmap/cardbg"
+                        android:id="@+id/layout_under"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView"
-                    style="@android:style/TextAppearance.Medium"
+                        <TextView
+                            android:id="@+id/textView3"
+                            style="@android:style/TextAppearance.Small"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:layout_margin="20dp"
+                            android:padding="@dimen/_20sdp"
+                            android:text="@{item.description}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:text="description" />
+                    </LinearLayout>
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/cell_title_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="116dp"
-                    android:layout_marginLeft="116dp"
-                    android:layout_marginTop="4dp"
-                    android:text="@{item.status}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="status" />
+                    android:layout_height="wrap_content">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:background="@mipmap/notebg"
+                        android:id="@+id/constrain_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <TextView
+                        <ImageView
+                            android:id="@+id/update"
+                            android:layout_width="64dp"
+                            android:onClick="@{()->adapter.onItemClicked2(item)}"
+                            android:src="@drawable/update"
+                            android:padding="5dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="5dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    android:id="@+id/textView2"
-                    style="@android:style/TextAppearance.Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@{item.message}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:text="author" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginTop="8dp"
-                    tools:text="num"
-                    android:text="@{item.num}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_begin="37dp" />
 
-            <LinearLayout
-                android:id="@+id/layout_under"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/constrain_layout"
-                android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/delete"
+                            android:layout_width="64dp"
+                            android:onClick="@{()->adapter.onItemClicked(item)}"
+                            android:src="@drawable/ic_baseline_remove_24"
+                            android:layout_height="32dp"
+                            android:layout_margin="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/update" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    style="@android:style/TextAppearance.Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="@{item.description}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:text="description" />
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/textView"
+                            style="@android:style/TextAppearance.Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="116dp"
+                            android:layout_marginLeft="116dp"
+                            android:layout_marginTop="4dp"
+                            android:text="@{item.status}"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="status" />
+
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="80dp"
+                            android:layout_marginLeft="80dp"
+                            android:layout_marginTop="8dp"
+                            tools:text="num"
+                            android:text="@{item.num}"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+
+                            android:id="@+id/textView2"
+                            style="@android:style/TextAppearance.Small"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="80dp"
+                            android:layout_marginLeft="80dp"
+                            android:layout_marginBottom="16dp"
+                            android:text="@{item.message}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:text="message" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </FrameLayout>
+            </com.ramotion.foldingcell.FoldingCell>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

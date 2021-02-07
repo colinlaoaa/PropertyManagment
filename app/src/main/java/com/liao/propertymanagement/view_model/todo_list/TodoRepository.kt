@@ -1,17 +1,18 @@
-package com.liao.propertymanagement.view_model.todoList
+package com.liao.propertymanagement.view_model.todo_list
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.liao.propertymanagement.helper.FirebaseLiveDatabase
+import com.liao.propertymanagement.helper.SessionManager
 import com.liao.propertymanagement.model.TodoList
 
 class TodoRepository() {
     val todoList: MutableLiveData<List<TodoList>?> by lazy {
         MutableLiveData<List<TodoList>?>()
     }
-    lateinit var tableName: String
+    var tableName = SessionManager.getLandlordEmail()!!.replace(".", "")
 
     fun getDataFromFirebase() {
 

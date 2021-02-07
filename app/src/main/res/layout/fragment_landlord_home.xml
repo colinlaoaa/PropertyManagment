@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_fenlei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Landlord"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:layout_width="220dp"
+                android:layout_height="2dip"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="45dp"
+                android:layout_marginRight="10dp" />
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:background="@drawable/bg">
+
+        <tarek360.animated.icons.AnimatedIconView
+            android:id="@+id/animatedIconView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="20dp" />
+
+        <TextView
+            android:id="@+id/text_view_animatedIconView"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/animatedIconView"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="Alert" />
+
+        <ImageView
+            android:id="@+id/image_view_Tenants"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/animatedIconView"
+            android:padding="20dp"
+            android:src="@drawable/ic_tenants" />
+
+        <TextView
+            android:id="@+id/text_view_Tenants"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_view_Tenants"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/text_view_animatedIconView"
+            android:gravity="center"
+            android:text="Tenants" />
+
+        <ImageView
+            android:id="@+id/image_view_collect_rent"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/image_view_Tenants"
+            android:padding="20dp"
+            android:src="@drawable/collect_rent" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_view_Tenants"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/text_view_Tenants"
+            android:gravity="center"
+            android:text="Collect Rent" />
+
+
+        <ImageView
+            android:id="@+id/image_view_todo_list"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/text_view_animatedIconView"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="20dp"
+            android:src="@drawable/to_do_list" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_view_todo_list"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="To-do list" />
+
+
+        <ImageView
+            android:id="@+id/image_view_docs"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/text_view_animatedIconView"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/image_view_todo_list"
+            android:padding="20dp"
+            android:src="@drawable/docs" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_view_todo_list"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/image_view_todo_list"
+            android:gravity="center"
+            android:text="Documents" />
+
+        <ImageView
+            android:id="@+id/image_view_properties"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/text_view_animatedIconView"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/image_view_docs"
+            android:padding="20dp"
+            android:src="@drawable/houseicon" />
+
+        <TextView
+            android:id="@+id/text_view_properties"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_view_properties"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/image_view_docs"
+            android:gravity="center"
+            android:text="Properties" />
+
+
+    </RelativeLayout>
+    </LinearLayout>

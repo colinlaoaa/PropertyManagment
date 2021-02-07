@@ -1,15 +1,16 @@
-package com.liao.propertymanagement.ui.actitvies.auth
+package com.liao.propertymanagement.ui.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.liao.propertymanagement.R
-import com.liao.propertymanagement.ui.actitvies.home.HomeActivity
+import com.liao.propertymanagement.helper.SessionManager
+import com.liao.propertymanagement.ui.home.HomeActivity
 
 class SplashActivity : AppCompatActivity() {
     private val delayedTime: Long = 2200
-    private val isLoggedIn = false
+    private val isLoggedIn = SessionManager.checkLogin()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,8 +1,8 @@
-package com.liao.propertymanagement.ui.actitvies.todoList
+package com.liao.propertymanagement.ui.todoList
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -10,26 +10,24 @@ import androidx.lifecycle.ViewModelProvider
 import com.liao.propertymanagement.R
 import com.liao.propertymanagement.adapters.AdapterTodoList
 import com.liao.propertymanagement.databinding.ActivityAddToDoListBinding
+import com.liao.propertymanagement.helper.SessionManager
 import com.liao.propertymanagement.helper.toolbar
 import com.liao.propertymanagement.model.TodoList
-import com.liao.propertymanagement.ui.fragment.todoList.AddTodoListFragment
-import com.liao.propertymanagement.ui.fragment.todoList.TodoListFragment
-import com.liao.propertymanagement.viewModel.todoList.TodoListViewModel
+import com.liao.propertymanagement.view_model.todo_list.TodoListViewModel
 import kotlinx.android.synthetic.main.activity_add_to_do_list.*
-import kotlinx.android.synthetic.main.app_bar.*
-import kotlinx.android.synthetic.main.fragment_add_todo_list.view.*
-import kotlinx.android.synthetic.main.fragment_todo_list.*
-import kotlinx.android.synthetic.main.fragment_todo_list.view.*
 
 class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteraction {
     private lateinit var viewModel: TodoListViewModel
     private val mAdapter = AdapterTodoList(this)
     private lateinit var binding: ActivityAddToDoListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_to_do_list)
         viewModel = ViewModelProvider(this).get(TodoListViewModel::class.java)
-        binding.viewModel= viewModel
+        binding.viewModel = viewModel
+
+
         observerData()
         initList()
 
@@ -37,6 +35,10 @@ class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteract
     }
 
     private fun initList() {
+        binding.refreshLayout.setOnRefreshListener {
+            binding.refreshLayout.isRefreshing = false
+        }
+
         binding.recyclerView.apply {
             adapter = mAdapter
 
@@ -49,6 +51,13 @@ class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteract
         viewModel.todoRepositoryObserver().observe(this, Observer {
             if (it != null) {
                 mAdapter.setData(it)
+
+            }
+        })
+
+        viewModel.closeFragmentObserver().observe(this, Observer {
+            if(it == true){
+                supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentById(R.id.container)!!).commit()
             }
         })
     }
@@ -56,10 +65,16 @@ class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteract
 
     private fun init() {
         toolbar("Add notes")
+
+
+
         button_add_note.setOnClickListener {
-            var addTodoListFragment = AddTodoListFragment()
-            supportFragmentManager.beginTransaction().replace(R.id.container, addTodoListFragment)
-                .addToBackStack("").commit()
+            var addTodoListFragment =
+                AddTodoListFragment()
+
+                supportFragmentManager.beginTransaction().replace(R.id.container, addTodoListFragment).addToBackStack("")
+                    .commit()
+
         }
         mAdapter.setListener(this)
     }
@@ -70,17 +85,29 @@ class AddToDoListActivity : AppCompatActivity(), AdapterTodoList.AdapterInteract
     }
 
     override fun clickEvent2(item: TodoList) {
-        var todoListFragment = TodoListFragment.newInstance(item,"")
-        supportFragmentManager.beginTransaction().replace(R.id.container, todoListFragment)
-            .addToBackStack("").commit()
+        var todoListFragment = TodoListFragment.newInstance(item, "")
+
+            supportFragmentManager.beginTransaction().replace(R.id.container, todoListFragment).addToBackStack("")
+                .commit()
+        viewModel.clearUpdateStatus()
+
     }
 
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_bar_add, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> finish()
+            R.id.add_menu_bar -> {
+                var addTodoListFragment =
+                    AddTodoListFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.container, addTodoListFragment).addToBackStack("")
+                        .commit()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

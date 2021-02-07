@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.liao.propertymanagement.view_model.auth.RegisterViewModel" />
+
+    </data>
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/house">
@@ -41,10 +52,11 @@
 
 
             <EditText
-                android:id="@+id/login_input_lanlord_email"
+                android:id="@+id/register_input_landlord_email"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="10dp"
+                android:text="@={viewModel.landlordEmail}"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/edittext_selector"
                 android:hint="landlord email"
@@ -78,6 +90,7 @@
 
         </FrameLayout>
 
+
         <FrameLayout
             android:id="@+id/username_layout"
             android:layout_width="fill_parent"
@@ -88,13 +101,14 @@
 
 
             <EditText
-                android:id="@+id/login_input_username"
+                android:id="@+id/register_input_username"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="10dp"
+                android:text="@={viewModel.name}"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/edittext_selector"
-                android:hint="email"
+                android:hint="name"
                 android:minHeight="40dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="60dp"
@@ -125,18 +139,66 @@
 
         </FrameLayout>
 
+        <FrameLayout
+            android:id="@+id/user_email_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username_layout"
+            android:layout_marginTop="5dp"
+            android:gravity="center">
+
+
+            <EditText
+                android:id="@+id/register_input_email"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:layout_marginRight="5dp"
+                android:text="@={viewModel.email}"
+                android:background="@drawable/edittext_selector"
+                android:hint="email"
+                android:minHeight="40dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="60dp"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textColorHint="#95A1AA"
+                android:textCursorDrawable="@drawable/edittext_cursor" />
+
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="21dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="20dp"
+                android:background="@mipmap/user"
+                android:visibility="visible" />
+
+
+            <Button
+                android:id="@+id/del_useremail_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="20dp"
+                android:background="@mipmap/delete"
+                android:visibility="invisible" />
+
+        </FrameLayout>
+
 
         <FrameLayout
             android:id="@+id/passwd_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/username_layout"
+            android:layout_below="@id/user_email_layout"
             android:layout_marginTop="0dp"
             android:gravity="center">
 
 
             <EditText
-                android:id="@+id/login_input_password1"
+                android:id="@+id/register_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="10dp"
@@ -145,11 +207,12 @@
                 android:hint="password"
                 android:inputType="textPassword"
                 android:maxLength="20"
+                android:text="@={viewModel.password}"
                 android:minHeight="40dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="60dp"
                 android:singleLine="true"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textColorHint="#95A1AA"
                 android:textCursorDrawable="@drawable/edittext_cursor" />
 
@@ -188,6 +251,7 @@
             android:id="@+id/check_box_tenant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="@={viewModel.tenantIsSelect}"
             android:layout_below="@+id/passwd_layout"
             android:text="tenant" />
 
@@ -212,7 +276,7 @@
             android:textSize="16sp" />
 
 
-        <Button
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/register_btn"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -222,6 +286,8 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/button_selector"
             android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:onClick="@{()->viewModel.registerClicked()}"
             android:text="Register"
             android:textAlignment="center"
             android:textColor="@android:color/black"
@@ -230,3 +296,4 @@
     </RelativeLayout>
 
 </RelativeLayout>
+</layout>

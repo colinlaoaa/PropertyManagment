@@ -1,4 +1,4 @@
-package com.liao.propertymanagement.viewModel.auth
+package com.liao.propertymanagement.view_model.auth
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
@@ -10,9 +10,9 @@ class RegisterViewModel : ViewModel() {
     private val registerRepository =
         RegisterRepository(ApiClient.getApiEndPoint())
 
-    val email = ObservableField<String?>()
-    val name = ObservableField<String?>()
     val landlordEmail = ObservableField<String?>()
+    val name = ObservableField<String?>()
+    val email = ObservableField<String?>()
     val password = ObservableField<String?>()
     val tenantIsSelect = ObservableField<Boolean>()
 
@@ -35,9 +35,26 @@ class RegisterViewModel : ViewModel() {
             user.type = "landlord"
         }
         giveParamsGetList(user)
+    }
 
+    fun setCheckBox(){
+        tenantIsSelect.set(true)
+    }
 
+    fun cleanLandlordEmailEditText() {
+        landlordEmail.set("")
+    }
 
+    fun cleanEmailEditText() {
+       email.set("")
+    }
+
+    fun cleanNameEditText() {
+        name.set("")
+    }
+
+    fun cleanPasswordEditText() {
+        password.set("")
     }
 
 }
